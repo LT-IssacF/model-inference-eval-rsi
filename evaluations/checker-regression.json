@@ -1,0 +1,49 @@
+{
+  "scope": "repository_checker_regression",
+  "passed": true,
+  "checks": [
+    {
+      "case": "portable English release from another working directory",
+      "passed": true,
+      "checker_return_code": 0,
+      "observed_error": null
+    },
+    {
+      "case": "original evidence checked from a relocated release",
+      "passed": true,
+      "checker_return_code": 0,
+      "observed_error": null
+    },
+    {
+      "case": "modified evidence fingerprint",
+      "passed": true,
+      "checker_return_code": 1,
+      "observed_error": "evidence snapshot hash mismatch: staggered"
+    },
+    {
+      "case": "cyclic improvement lineage",
+      "passed": true,
+      "checker_return_code": 1,
+      "observed_error": "cyclic lineage at recovery-observability"
+    },
+    {
+      "case": "false full-workload success assertion",
+      "passed": true,
+      "checker_return_code": 1,
+      "observed_error": "failed evidence assertion: staggered-full-run-failed"
+    },
+    {
+      "case": "development-language content in an English release",
+      "passed": true,
+      "checker_return_code": 1,
+      "observed_error": "non-English release content: development-note.md"
+    },
+    {
+      "case": "changed original evidence source",
+      "passed": true,
+      "checker_return_code": 1,
+      "observed_error": "source hash mismatch: gpu-measurements"
+    }
+  ],
+  "method_effectiveness": "not_run"
+}

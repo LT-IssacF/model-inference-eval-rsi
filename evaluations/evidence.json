@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-11-26",
+  "evidence": {
+    "gpu-measurements": {
+      "source": "sites/evidence/plddt-measurements.json",
+      "source_sha256": "5761ad531dddcb878f289a31e5b48ee15b1dc48ebddc0da3ea511b300b786254",
+      "values": {
+        "/sample_candidates": 50,
+        "/sample_seconds": {
+          "non_triton_bucketed": 1105.84,
+          "attention": 496.45,
+          "attention_layernorm": 476.79,
+          "batch_safe_single_gpu": 456.8002021666616,
+          "eight_gpu_shm": 113.313
+        },
+        "/full_max_plddt_diff": [
+          2.178,
+          3.466,
+          2.949
+        ],
+        "/full_stock_summary": [
+          "68.05 ± 1.50",
+          "68.13 ± 1.07",
+          "66.56 ± 1.35"
+        ],
+        "/full_optimized_summary": [
+          "68.05 ± 1.50",
+          "68.13 ± 1.07",
+          "66.56 ± 1.36"
+        ],
+        "/full_scope": "Eight GPUs per seed. Strict per-candidate fallback verified for seed1 only."
+      },
+      "values_sha256": "b9b6829de2dee124d388ee5b8545cfdaafd2250cd637c158f75374d360c845e4"
+    },
+    "queue-comparison": {
+      "source": "experiments/acceleration/ipr-seed2-priority-par4-4x8.r5mgD9/analysis/queue_comparison.json",
+      "source_sha256": "38a341bf2c1595d9ec2adf3d6669714efeb3957b8eff434c1dffa38ef6a32f99",
+      "values": {
+        "/interpro_id_matches": 1000,
+        "/exact_panther_matches": 1000,
+        "/wall_seconds_stock": 5414.2508020401,
+        "/wall_seconds_priority": 4610.757833480835,
+        "/median_panther_block_cpu_seconds": {
+          "stock": 857.375,
+          "priority": 860.76
+        },
+        "/baseline_configuration": "stock queue, prefetch=1, four concurrent PANTHER blocks per JVM",
+        "/experiment_configuration": "critical-path queue, prefetch=0, four concurrent PANTHER blocks per JVM"
+      },
+      "values_sha256": "d91c27b196f94f455333196b538c63e085629e645dff72a6bc3640d5f0b518ab"
+    },
+    "guard-regression": {
+      "source": "experiments/d-standard-eval/step3300-full870-ipr-standalone-recheck-8x8/regression-tests.json",
+      "source_sha256": "9efe8bfba2288a532c01b60f687cf8d4658291425bdfbb08bda06b2ae8a949f5",
+      "values": {
+        "/passed": true,
+        "/previous_failed_wave/counts": {
+          "proxy_launch": 5,
+          "proxy_exit": 0,
+          "heartbeat": 3,
+          "same_tid_percpu_wait": 0,
+          "probe_error": 0,
+          "guard_stop": 1
+        },
+        "/streaming_replay_previous_failure": [
+          {
+            "reason": "probe_phase_over_limit",
+            "phase": "launch",
+            "index": 16,
+            "seconds": 5.779084695503116
+          },
+          {
+            "reason": "probe_phase_over_limit",
+            "phase": "launch",
+            "index": 34,
+            "seconds": 7.506961811333895
+          },
+          {
+            "reason": "probe_phase_over_limit",
+            "phase": "launch",
+            "index": 37,
+            "seconds": 7.999341428279877
+          },
+          {
+            "reason": "probe_phase_over_limit",
+            "phase": "launch",
+            "index": 38,
+            "seconds": 6.220569618046284
+          },
+          {
+            "reason": "probe_phase_over_limit",
+            "phase": "launch",
+            "index": 40,
+            "seconds": 7.949957000091672
+          },
+          {
+            "reason": "heartbeat_gap",
+            "phase": null,
+            "index": null,
+            "seconds": 6.050708759576082
+          },
+          {
+            "reason": "heartbeat_gap",
+            "phase": null,
+            "index": null,
+            "seconds": 8.209092093631625
+          },
+          {
+            "reason": "heartbeat_gap",
+            "phase": null,
+            "index": null,
+            "seconds": 6.164442662149668
+          }
+        ],
+        "/spawn_does_not_reset_launch": {
+          "reason": "probe_phase_over_limit",
+          "phase": "launch_active",
+          "seconds_at_least": 6
+        },
+        "/formal_wave_count": 2,
+        "/formal_waves/wave01/passed": true,
+        "/formal_waves/wave02/passed": true
+      },
+      "values_sha256": "2330a4e7c74f4771b95cf93bee2282ae880eefba8a68dfaaa66427ad82cf1a76"
+    },
+    "standalone": {
+      "source": "experiments/d-standard-eval/step3300-full870-ipr-standalone-recheck-8x8/final-verification.json",
+      "source_sha256": "a34f4be55c96804679af4a4fae609a44009a6702efb58bece4f3b8341a31e515",
+      "values": {
+        "/passed": true,
+        "/top_wall_seconds": 1587.581324,
+        "/input_sequences": 5727,
+        "/valid_candidate_slots": 8692,
+        "/finite_candidate_scores": 8692,
+        "/protection_totals/violation_counts": {
+          "proxy_launch": 0,
+          "proxy_exit": 0,
+          "heartbeat": 0,
+          "same_tid_percpu_wait": 0,
+          "probe_error": 0,
+          "guard_stop": 0
+        }
+      },
+      "values_sha256": "17048c0030e8648260017b0ba22aaf8ae19005470aeac526c3601656e768ee1e"
+    },
+    "staggered": {
+      "source": "experiments/d-standard-eval/step3300-full870-plddt-ipr-staggered-8gpu-8x8-wave01/final-verification.json",
+      "source_sha256": "2b9a1350dbdfeba1ef239c3fbae2520a39bbeb273f41212be22711cb2b2840a2",
+      "values": {
+        "/verification_passed": true,
+        "/experiment_passed": false,
+        "/plddt_passed": true,
+        "/ipr_wave01_passed": true,
+        "/ipr_wave02_protection_stopped": true,
+        "/ipr_full870_passed": false,
+        "/full870_ipr_score_generated": false,
+        "/wave02/protection/violation_counts": {
+          "proxy_launch": 1,
+          "proxy_exit": 0,
+          "heartbeat": 0,
+          "same_tid_percpu_wait": 0,
+          "probe_error": 0,
+          "guard_stop": 1
+        },
+        "/wave02/protection/max_proxy_launch_seconds": 6.041066041216254
+      },
+      "values_sha256": "43b614d726809b12bba184ebdca549c45fa73e808f2c549e1e04290bd10410e9"
+    },
+    "sentinel": {
+      "source": "experiments/d-standard-eval/step3300-plddt-ipr/plddt-acceptance.json",
+      "source_sha256": "80fa971af2dfaa0e036eeaef07378e248f22548b15876a7b342b115e06a1d2b4",
+      "values": {
+        "/passed": true,
+        "/native_audit_fold_passed": false,
+        "/valid_candidate_slots": 8692,
+        "/unique_valid_sequences": 4862,
+        "/merged_cache_raw_entries": 4863,
+        "/ignored_empty_sentinel_md5": "d41d8cd98f00b204e9800998ecf8427e",
+        "/state": "passed_with_documented_empty_sentinel_normalization"
+      },
+      "values_sha256": "198e1ac59c01fa07306596d643c13b83556bf208f61f07604eb1461ad7f4aded"
+    },
+    "legacy-repeat": {
+      "source": "experiments/d-standard-eval/legacy-seeds-remaining-20261125/repeat-independent-verification.json",
+      "source_sha256": "c388416d6e93ddb3d38e8b2e0d1883fba34cc74f4ed350e5b48471ba845128b8",
+      "values": {
+        "/1": {
+          "valid_slots_checked": 745,
+          "max_abs_repeat_delta": 7.105427357601002e-15,
+          "historical_all_slot_repeat_percent": 23.751636313563747
+        },
+        "/2": {
+          "valid_slots_checked": 735,
+          "max_abs_repeat_delta": 7.105427357601002e-15,
+          "historical_all_slot_repeat_percent": 24.057577790145913
+        },
+        "/3": {
+          "valid_slots_checked": 726,
+          "max_abs_repeat_delta": 1.4210854715202004e-14,
+          "historical_all_slot_repeat_percent": 25.591032221841537
+        }
+      },
+      "values_sha256": "c44253f35e2a39835abb797bbbfcd347ac3fc333e0c56c413f0c1686dc16446d"
+    },
+    "legacy-protrek": {
+      "source": "experiments/d-standard-eval/legacy-seeds-remaining-20261125/protrek-comparison.json",
+      "source_sha256": "2dbf102f6d405b44a2b2e0684e5557146b3f1cd6cddb89a57db530bc7b566fad",
+      "values": {
+        "/1": {
+          "coverage": 745,
+          "protrek_document_percent": 25.787650255498868,
+          "max_abs_cosine_delta": 0.0,
+          "mean_abs_cosine_delta": 0.0
+        },
+        "/2": {
+          "coverage": 735,
+          "protrek_document_percent": 24.925087098868527,
+          "max_abs_cosine_delta": 0.0,
+          "mean_abs_cosine_delta": 0.0
+        },
+        "/3": {
+          "coverage": 726,
+          "protrek_document_percent": 24.94354580783031,
+          "max_abs_cosine_delta": 0.0,
+          "mean_abs_cosine_delta": 0.0
+        }
+      },
+      "values_sha256": "093e984b7a64eb8f5fce5cc8a92fe5e8a445c205bd7263b27ab06433c866ab7f"
+    },
+    "legacy-novelty": {
+      "source": "experiments/d-standard-eval/legacy-seeds-remaining-20261125/report.json",
+      "source_sha256": "8cd96087d391cecf95b3c5ae5861e5265093f5377f28df402fd7de8681962038",
+      "values": {
+        "/passed": true,
+        "/seeds/1/novelty_hard_max_abs_delta": 0.0,
+        "/seeds/2/novelty_hard_max_abs_delta": 0.0,
+        "/seeds/3/novelty_hard_max_abs_delta": 0.0,
+        "/seeds/1/novelty_easy_max_abs_delta": 0.0,
+        "/seeds/2/novelty_easy_max_abs_delta": 0.0,
+        "/seeds/3/novelty_easy_max_abs_delta": 0.0,
+        "/seeds/1/novelty_easy_outside_0_1": 178,
+        "/seeds/2/novelty_easy_outside_0_1": 186,
+        "/seeds/3/novelty_easy_outside_0_1": 223,
+        "/seeds/1/repeat_percent": {
+          "rep": 2.192257082605604,
+          "rep2": 36.1617159777967,
+          "rep5": 0.3974978667704809
+        },
+        "/seeds/2/repeat_percent": {
+          "rep": 1.9537422686869543,
+          "rep2": 39.816650468717654,
+          "rep5": 0.34075215430953537
+        },
+        "/seeds/3/repeat_percent": {
+          "rep": 2.265295040255529,
+          "rep2": 39.630927292061756,
+          "rep5": 0.5492971354178412
+        }
+      },
+      "values_sha256": "a7f1afb2b71a69929bb58dd24a28b3187f9541ba236815b5ca8630faabb8738d"
+    },
+    "thread-attribution": {
+      "source": "experiments/acceleration/ipr-debug-real-activity-A.i62m9jz0/analysis/pair_comparison.md",
+      "source_format": "text",
+      "source_sha256": "b6ad2f92de7b10792ec6540aac956fe951e0ae8783cf1c0027b62ba3cdddc6b2",
+      "values": {
+        "/text": "# 真实十四组件 A/B 对照\n\nA 使用原 pfscanV3 参数，B 仅增加 pfscanV3 -t 1。两组为相同 seed2 千条四分片、4×8、PANTHER 16 块并发 4、hmmsearch --cpu 0，顺序运行。\n\n| 指标 | A 默认 | B pfscan t1 |\n| --- | --- | --- |\n| 完整 match 一致条数 | 1000 | 1000 |\n| 墙钟分钟 | 76.17 | 75.36 |\n| pthread 创建调用总量 | 642624 | 360046 |\n| percpu 等待样本 / 任务 / 进程 | 24 / 24 / 14 | 36 / 35 / 18 |\n| cgroup CPU full avg10 峰值 % | 2.9 | 2.75 |\n| 约 1 秒窗口 pthread 创建峰值 /s | 12584.6 | 8926.4 |\n| 约 1 秒窗口 容器 PID 分配峰值 /s | 12539.1 | 9045.0 |\n| 约 1 秒窗口 节点任务分配峰值 /s | 12628.1 | 9093.9 |\n| 约 10 秒窗口 pthread 创建峰值 /s | 8422.4 | 7158.6 |\n| 约 10 秒窗口 容器 PID 分配峰值 /s | 8479.7 | 7180.2 |\n| 约 10 秒窗口 节点任务分配峰值 /s | 8623.3 | 7284.3 |\n| 约 60 秒窗口 pthread 创建峰值 /s | 3900.7 | 2724.6 |\n| 约 60 秒窗口 容器 PID 分配峰值 /s | 3948.8 | 2741.0 |\n| 约 60 秒窗口 节点任务分配峰值 /s | 4073.3 | 2867.7 |\n\n## 按实际工具归因\n\n| 组件 | 工具 | A 图像 | B 图像 | A 创建 | B 创建 |\n| --- | --- | --- | --- | --- | --- |\n| HAMAP | pfsearchV3 | 645 | 645 | 316672 | 316672 |\n| PROSITE patterns | pfscanV3 | 378 | 378 | 283648 | 1108 |\n| PROSITE profiles | pfsearchV3 | 5596 | 5596 | 37048 | 37048 |\n| PANTHER | epa-ng | 462 | 462 | 1761 | 1761 |\n| InterProScan | java | 4 | 4 | 1475 | 1437 |\n| SMART | hmmpfam | 4 | 4 | 1000 | 1000 |\n| SUPERFAMILY | hmmscan | 4 | 4 | 1000 | 1000 |\n| PANTHER | python3 | 4 | 4 | 16 | 16 |\n| CDD | rpsblast | 4 | 4 | 4 | 4 |\n| SFLD | sfld_postprocess | 4 | 4 | 0 | 0 |\n| Pfam | python3 | 4 | 4 | 0 | 0 |\n| PANTHER | treegrafter.py | 4 | 4 | 0 | 0 |\n| Pfam | hmmsearch | 4 | 4 | 0 | 0 |\n| PROSITE patterns | env | 4 | 4 | 0 | 0 |\n| PROSITE patterns | ps_scan.pl | 4 | 4 | 0 | 0 |\n| SUPERFAMILY | ass3_single_threaded.pl | 4 | 4 | 0 | 0 |\n| AntiFam | python3 | 4 | 4 | 0 | 0 |\n| PIRSF | pirsf.pl | 4 | 4 | 0 | 0 |\n| AntiFam | hmmsearch | 4 | 4 | 0 | 0 |\n| PANTHER | hmmsearch | 64 | 64 | 0 | 0 |\n| PROSITE patterns | sh | 378 | 378 | 0 | 0 |\n| HAMAP | hmmsearch | 4 | 4 | 0 | 0 |\n| HAMAP | python3 | 4 | 4 | 0 | 0 |\n| PIRSF | python3 | 4 | 4 | 0 | 0 |\n| PIRSF | hmmsearch | 4 | 4 | 0 | 0 |\n| InterProScan | bash | 232 | 216 | 0 | 0 |\n| CDD | rpsbproc | 4 | 4 | 0 | 0 |\n| Gene3D | cath-resolve-hits | 4 | 4 | 0 | 0 |\n| PROSITE profiles | runprosite.py | 4 | 4 | 0 | 0 |\n| HAMAP | pfsearch_wrapper.py | 4 | 4 | 0 | 0 |\n| InterProScan | ps | 116 | 108 | 0 | 0 |\n| PRINTS | fingerPRINTScan | 4 | 4 | 0 | 0 |\n| Gene3D | assign_cath_superfamilies.py | 4 | 4 | 0 | 0 |\n| SFLD | hmmsearch | 4 | 4 | 0 | 0 |\n| SFLD | python3 | 4 | 4 | 0 | 0 |\n| NCBIfam | hmmsearch | 4 | 4 | 0 | 0 |\n| Gene3D | python3 | 4 | 4 | 0 | 0 |\n| NCBIfam | python3 | 4 | 4 | 0 | 0 |\n| Gene3D | hmmsearch | 4 | 4 | 0 | 0 |\n\n## 证据边界\n\n线程计数来自实际混合负载的动态进程图像，共享累计量按秒读取，最终总量与逐秒增量严格校验。短命图像的采集延迟会使调用落到邻近窗口，详见各组 native_activity.json 的采集间隔与延迟。\n\n容器 namespace 还包括采集器、控制命令和其他容器内活动。直接 syscall、静态程序与 fork 后尚未 exec 的子进程不受本次 pthread API 插桩完整覆盖，不能把差额强行归入某个组件。\n\n等待按有限间隔采样，样本数不代表真实事件次数或总等待时长。单次顺序 A/B 不能排除节点背景变化；锁实例、持锁方、宿主 tasklist_lock 与官方探针延迟仍无直接证据。\n\n[机器可读完整对照](pair_comparison.json) · [A 等待与创建对齐](wait_creation_alignment.json) · [B 等待与创建对齐](../../ipr-debug-real-activity-B.i62m9jz0/analysis/wait_creation_alignment.json)\n"
+      },
+      "values_sha256": "ca3759dd4f36f1c2e7522f956fa9415649ce91d6101fc0c8852a4bec46aa4d7c"
+    },
+    "gpu-review": {
+      "source": "agent-progress/acceleration/details/plddt-acceleration.md",
+      "source_format": "text",
+      "source_sha256": "cc1e6558537bf7d7505f9bc98b22fe4985c35f919710d48f8c95a88ead614b75",
+      "values": {
+        "/text": "# pLDDT / ESMFold 加速\n\n## 1. 已验收配置\n\n完整优化 stack：\n\n```text\nfused arbitrary-bias attention = true\nattention precision            = IEEE fp32\nattention BLOCK_M              = 64\nattention BLOCK_N              = 32\nattention num_warps            = 4\nattention num_stages           = 1\nTriton LayerNorm               = true\nLayerNorm rows_per_program     = 8\ntrunk chunk_size               = 128\ntoken budget                   = 4096\nMatMul TF32                    = false\ncuDNN TF32                     = true\n```\n\n保持关闭：\n\n```text\nplddt_triton_triangle_gating = false\nplddt_triangle_bmm_repack    = false\nattention TF32 dot           = false\n```\n\n拒绝原因：\n\n| 实验 | 结论 |\n|---|---|\n| attention TF32 dot | max差异0.466点，速度仅约1.2%收益 |\n| triangle gating | 正确性可接受，但无可测量wall收益 |\n| triangle BMM repack | 子图2.4x，完整ESMFold变慢 |\n| channels-last LayerNorm | standalone有效，完整ESMFold无收益 |\n\ntokenizer 语义：\n\n```text\npadding=True\ntruncation=True\nadd_special_tokens=False\nmax_length=1024\n```\n\n超过1024aa的序列只取前1024aa参与pLDDT。\n\n## 2. 权重缓存\n\n共享盘权威模型：\n\n```text\n/mnt/ai4s/zhanghan2/eval_tools/models/esmfold_v1/75a3841ee059df2bf4d56688166c8fb459ddd97a\n```\n\n运行期缓存：\n\n```text\n/dev/shm/proteinarena-cache/esmfold_v1/75a3841ee059df2bf4d56688166c8fb459ddd97a\n```\n\n创建缓存：\n\n```bash\nmkdir -p /dev/shm/proteinarena-cache/esmfold_v1\ncp -a \\\n  /mnt/ai4s/zhanghan2/eval_tools/models/esmfold_v1/75a3841ee059df2bf4d56688166c8fb459ddd97a \\\n  /dev/shm/proteinarena-cache/esmfold_v1/\n```\n\n## 3. 8卡并行策略\n\n入口：\n\n```text\nscripts/foldability_parallel.py\n```\n\n策略：\n\n1. 按 sequence MD5 去重。\n2. 以 `min(length, 1024)` 的2.8次方作为 cost proxy。\n3. LPT分配唯一序列到8个worker。\n4. 每个 worker 写独立 `foldability_cache.json`。\n5. 物理 GPU n 通过 `CUDA_VISIBLE_DEVICES=n` 暴露，进程内使用 `cuda:0`。\n6. 全部 worker 成功后合并 cache。\n7. 用原始 full input 重建标准 `foldability.json` 和 `results.json`。\n\nMACA Triton 在同一进程直接访问多卡时可能出现 pointer argument 错误，因此单卡可见映射是必要配置。\n\n## 4. smoke 复现\n\n输入：\n\n```text\n/mnt/ai4s/zhanghan2/standard_runs/v23max_ep1_design_oc_frozen/kernel_validation/plddt_50/input.json\n```\n\n命令：\n\n```bash\n$PROTEIN_ARENA_PYTHON scripts/foldability_parallel.py \\\n  --input /mnt/ai4s/zhanghan2/standard_runs/v23max_ep1_design_oc_frozen/kernel_validation/plddt_50/input.json \\\n  --output-dir /mnt/ai4s/zhanghan2/standard_runs/v23max_ep1_design_oc_frozen/kernel_validation/plddt_50/repro_8gpu_smoke \\\n  --model-dir /dev/shm/proteinarena-cache/esmfold_v1/75a3841ee059df2bf4d56688166c8fb459ddd97a \\\n  --worker-count 8 \\\n  --devices cuda:0,cuda:1,cuda:2,cuda:3,cuda:4,cuda:5,cuda:6,cuda:7 \\\n  --chunk-size 128 \\\n  --token-budget 4096 \\\n  --attention-num-stages 1 \\\n  --fused-attention \\\n  --triton-layer-norm \\\n  --threads-per-worker 8 \\\n  --status-interval 30 \\\n  --baseline-seconds 456.8002021666616\n```\n\nsmoke结果：\n\n| 项目 | 数值 |\n|---|---:|\n| 单卡完整优化stack | 456.800s |\n| 8卡 + `/dev/shm` | 113.313s |\n| 相对单卡优化stack | 4.031x |\n| pLDDT max diff | 0.04216点 |\n| pLDDT <=0.05点 | 50/50 |\n| pAE max diff | 0.00849 |\n| NaN | 0 |\n\n## 5. 三 seed 全量复现\n\n```bash\nset -euo pipefail\n\nMODEL_DIR=/dev/shm/proteinarena-cache/esmfold_v1/75a3841ee059df2bf4d56688166c8fb459ddd97a\nRUN_ROOT=/mnt/ai4s/zhanghan2/standard_runs/v23max_ep1_design_oc_frozen\n\nfor seed in 1 2 3; do\n  $PROTEIN_ARENA_PYTHON scripts/foldability_parallel.py \\\n    --input \"$RUN_ROOT/design/seed${seed}/pdfbench_input.json\" \\\n    --output-dir \"$RUN_ROOT/design/seed${seed}/repro_pdfbench_plddt_8gpu\" \\\n    --model-dir \"$MODEL_DIR\" \\\n    --worker-count 8 \\\n    --devices cuda:0,cuda:1,cuda:2,cuda:3,cuda:4,cuda:5,cuda:6,cuda:7 \\\n    --chunk-size 128 \\\n    --token-budget 4096 \\\n    --attention-num-stages 1 \\\n    --fused-attention \\\n    --triton-layer-norm \\\n    --threads-per-worker 8 \\\n    --status-interval 300\ndone\n```\n\n已验收输出：\n\n```text\n$RUN_ROOT/design/seed1/pdfbench_plddt_8gpu\n$RUN_ROOT/design/seed2/pdfbench_plddt_8gpu\n$RUN_ROOT/design/seed3/pdfbench_plddt_8gpu\n```\n\n性能：\n\n| Seed | worker wall | 总耗时 | 单卡平均 | 整机吞吐 |\n|---|---:|---:|---:|---:|\n| 1 | 2043.595s | 34m04s | 16.349s/条 | 2.044s/条 |\n| 2 | 2226.639s | 37m07s | 17.813s/条 | 2.227s/条 |\n| 3 | 2230.557s | 37m11s | 17.844s/条 | 2.231s/条 |\n\n## 6. 数值验收\n\nOC summary 口径：\n\n| Seed | stock | 8卡优化 |\n|---|---:|---:|\n| 1 | 68.05 ± 1.50 | 68.05 ± 1.50 |\n| 2 | 68.13 ± 1.07 | 68.13 ± 1.07 |\n| 3 | 66.56 ± 1.35 | 66.56 ± 1.36 |\n\n逐候选差异：\n\n| Seed | max | mean | median | <=0.30点 | >0.30点 | >1.00点 |\n|---|---:|---:|---:|---:|---:|---:|\n| 1 | 2.178 | 0.064 | 0.009 | 932/1000 | 68 | 4 |\n| 2 | 3.466 | 0.126 | 0.015 | 901/1000 | 99 | 38 |\n| 3 | 2.949 | 0.162 | 0.026 | 847/1000 | 153 | 36 |\n\n差异主要来自 `>1024aa` 截断输入和 fused attention 数值路径。\n\nseed1已验证outlier回退hybrid：\n\n```text\n68条差异>0.30点候选回退到无fused attention、无Triton LayerNorm、chunk64\n回退耗时863.573s\n999/1000 <=0.30点\n唯一>0.30点候选对应stock PAE NaN / PDB cache shortcut\n```\n\n输出：\n\n```text\n/mnt/ai4s/zhanghan2/standard_runs/v23max_ep1_design_oc_frozen/design/seed1/pdfbench_plddt_hybrid_gt030\n```\n\nseed2/3若要求严格逐候选口径，需分别回退99条和153条outlier。\n\n## 7. 运行检查\n\n运行前：\n\n```text\n8张C550空闲\n/dev/shm ESMFold缓存存在\n输出目录为空或明确可续跑\n不与 bin/pa-standard --stages plddt 同时运行\n```\n\n运行后：\n\n```text\n8个worker return code均为0\nmerged_cache_count = unique_sequence_count\nfull input恰有1000候选槽位\npLDDT NaN = 0\nOC summary与stock对齐\nworkers/logs无Traceback\n```\n\n## 8. H 原版、D 迁移版和 D 加速版\n\n| 算子或配置 | H 集群原版 | zhanghan 的 D 集群迁移版 | 后续 D 集群加速版 |\n|---|---|---|---|\n| 运行时与入口 | 单张 H200，在历史测评镜像中运行 PDFBench。复测镜像为 PyTorch 2.10.0+cu128、Transformers 5.3.0 | 单张 D 共享 GPU，`d_pb.sh` 通过 `eval_tools/venv` 运行迁移后的 PDFBench | 单卡优化入口 `foldability_optimized.py`，全量验收用 `foldability_parallel.py` 在 8 张 C550-PL 上运行，MACA 3.8、Transformers 4.57.6 |\n| Trunk triangle attention | PyTorch 显式生成 $QK^T$，原地加 mask bias 和 triangle bias，再执行 softmax 与第二次 matmul | 迁移副本沿用 HF 原生 attention，无自定义融合算子 | Triton 按 tile 融合两次 dot、两个 bias 和在线 softmax，避免写回完整 logits 和概率矩阵 |\n| Pair-state LayerNorm | `torch.nn.LayerNorm` | 沿用 `torch.nn.LayerNorm` | 连续 FP32 张量且末维为 32、64、128 或 256 时，用 Triton 每 program 处理 8 行，其余布局沿用 PyTorch |\n| Triangle multiplicative update | Hugging Face 原实现，矩阵乘及门控 | 沿用原实现 | 沿用原实现，BMM 重排和门控融合经过试验后关闭 |\n| 分块和 batch | trunk chunk 64，每次评估一条候选 | trunk chunk 64，每次评估一条候选 | trunk chunk 128，短序列按长度分桶，超过 256 aa 的序列单独成批 |\n| TF32 | 源码未显式设置。复测时 matmul TF32 为 `False`，cuDNN TF32 为 `True` | 留存的迁移副本显式开启 matmul 和 cuDNN TF32。82.8 秒/条记录未单列当时的运行时开关 | matmul TF32 为 `False`，cuDNN TF32 为 `True`，Triton attention 使用 IEEE FP32 dot |\n| pLDDT 取分 | ESMFold-v1 原置信度头，生成 PDB 后重读 ATOM `b_factor` | 沿用相同流程，已有 PDB 可跳过折叠 | 沿用原置信度头，在张量上用 `atom37_atom_exists` 对逐原子 pLDDT 直接取均值 |\n| seed1，1000 条候选 | 历史报告 235 分钟，14.1 秒/条 | 历史报告 82.8 秒/条，约 23 小时是外推 | 八卡实际计算 1000 条，34 分 04 秒，整机约 2.04 秒/条 |\n\nH 的 [PDFBench 启动脚本](../../../h_code/run_pdfbench_plddt.sh) 调用 [原始 foldability.py](../../../h_code/foldability.py)。与 D 留存的迁移副本逐行比较，后者只在文件开头多出一次 `import torch` 和两行 TF32 设置。可通过 [D 迁移启动脚本](/mnt/ai4s/zhanghan2/eval_tools/d_pb.sh)、[seed1 单卡配置](/mnt/ai4s/zhanghan2/eval_tools/configs/v23max_ep1_s1_plddt.yml) 和 [D 迁移版 foldability.py](/mnt/ai4s/zhanghan2/eval_tools/PDFBench/src/metrics/structure/foldability.py) 核对。后续加速入口及内核见 [foldability_optimized.py](../../../scripts/foldability_optimized.py) 和 [fused_bias_attention.py](../../../scripts/fused_bias_attention.py)。\n\n对比了旧 D 的 [seed1 输入](/mnt/ai4s/zhanghan2/eval_tools/inputs/v23max_ep1_s1.json) 和加速验收的 [seed1 冻结输入](/mnt/ai4s/zhanghan2/standard_runs/v23max_ep1_design_oc_frozen/design/seed1/pdfbench_input.json)，两份 JSON 内容一致，覆盖 100 题的 1000 个候选槽位。旧 D 日志的一段折叠进度在 20 小时 19 分 56 秒达到 100/100。同一文件还记录了一次 4 小时 30 分 02 秒的重跑，开头很快跳过大部分进度，旧配置允许共享 PDB 缓存命中。现存日志无法核实整个 20 小时运行的缓存命中率。旧版留存输出的 1000 个槽位均有有限的 pLDDT 值。早期报告的“未完成”描述的是当时的状态。[迁移报告](../../../D集群与H集群对比.md#33-plddt-详细分析) · [旧 D 日志](/mnt/ai4s/zhanghan2/eval_tools/logs/pb_v23max_ep1_s1_plddt.log) · [旧 D 逐槽位输出](/mnt/ai4s/zhanghan2/eval_out/v23max_ep1_s1_plddt/foldability.json) · [D 加速版八卡计时](/mnt/ai4s/zhanghan2/standard_runs/v23max_ep1_design_oc_frozen/design/seed1/pdfbench_plddt_8gpu/parallel_stats.json)\n\nH 到 D 迁移版的耗时差距主要发生在保留算子写法、切换硬件和运行时的阶段。H200 复测证实其 triangle attention 也走未融合的 PyTorch 路径。早期报告对硬件、运行时和显存带宽各自的贡献没有做单变量对照，原报告提到的 FlashAttention 解释缺少这条路径的支持。[H 镜像中的 Hugging Face 源码节选](../../../h_code/hf_esmfold_attention.txt)\n\n### 单算子实测\n\n两边使用同一份随机张量基准脚本和匹配的形状。以下是预热后的 GPU 同步壁钟时间中位数，单位 ms。Attention 运行 10 次，LayerNorm 的 H 侧运行 20 次。表中的 C550 PyTorch 是后续优化实验的单算子参考。验收记录中 50 条序列的非 Triton 基准是另一项对照，已采用 chunk 128 和长度分桶，从 1105.84 秒降到融合 attention 后的 496.45 秒、完整单卡加速后的 456.80 秒。这两类对照都属于后续加速实验，早期迁移性能由上一节的报告与日志记录。[50 条单卡消融](../../../ACCELERATION_ACCEPTANCE.md#81-单卡-kernel-演进)\n\n| 输入形状 | H200 PyTorch | H200 试跑同一 D Triton | C550 PyTorch | C550 已验收 Triton |\n|---|---:|---:|---:|---:|\n| 双 bias attention，128 × 4 × 976 × 32 | 6.227 | 6.239 | 15.952 | 4.471 |\n| 双 bias attention，64 × 4 × 976 × 32 | 3.140 | 3.187 | — | — |\n| LayerNorm，1 × 952576 × 128，连续 FP32 | 1.391 | 0.253 | 3.905 | 0.951 |\n\nC550 上的 Triton attention 对 PyTorch 基准加速 3.57 倍，LayerNorm 加速 4.11 倍。在这两个匹配形状下，C550 的 Triton 时间均低于 H200 的 PyTorch 基准。将同一 attention kernel 及 tile 配置移到 H200 后，两个 chunk 大小下的中位数都与 H200 PyTorch 基本持平。连续 LayerNorm 的 H200 单算子中位数加速约 5.49 倍，整模型收益未在 H 测试。\n\n表中 attention 的共同 PyTorch 参考使用两个 `scores = scores + bias`。把 H 侧参考改成与 HF 相同的原地加法后，chunk 128 中位数为 6.045 ms，chunk 64 为 3.065 ms。同一轮试跑的 Triton 中位数分别为 6.242 ms 和 3.188 ms。以 chunk 128 的匹配形状对照，C550 Triton 的 4.471 ms 比 H200 原地参考快约 1.35 倍。实际模型还包含 Q/K/V 投影、门控和输出投影。[H200 原地写法 128](data/plddt-h200/h200_attention_inplace_chunk128.json) · [H200 原地写法 64](data/plddt-h200/h200_attention_inplace_chunk64.json)\n\n用到的现有脚本为 [fused_bias_attention.py](../../../scripts/fused_bias_attention.py) 和 [triton_layernorm.py](../../../scripts/triton_layernorm.py)。原始计时见 [H200 attention 128](data/plddt-h200/h200_attention_chunk128.json)、[H200 attention 64](data/plddt-h200/h200_attention_chunk64.json)、[H200 LayerNorm](data/plddt-h200/h200_layernorm.json)、[C550 attention](data/plddt-h200/c550_attention_chunk128.json) 与 [C550 LayerNorm](data/plddt-h200/c550_layernorm.json)。\n\n### 整模型算子追踪\n\nH200 以历史模型权重、chunk 64 和一条 976 aa 合成输入执行完整 `EsmForProteinFolding.forward`。不含权重载入、PDB 写读及 profiler 的预热后单次同步用时为 34.471 s，pLDDT 全部有限。\n\n- Triangle attention 范围检测到 12,288 次 `aten::bmm`、12,288 次 `aten::add_` 和 6,144 次 `aten::_softmax`。GPU 内核包括 cuBLAS FP32 GEMM、PyTorch 加法及 `softmax_warp_forward`。这条路径没有 FlashAttention 或 PyTorch SDPA。\n- ESM 主干 `EsmSelfAttention` 在本次实际前向也走 `aten::bmm` 和 `aten::_softmax`。HF 主干源码存在 backend 分派，本次 trace 没有观察到 FlashAttention 或 SDPA。\n- D 的 976 aa trace 来自 11 月 10–11 日的加速实验。非融合路径的两个 `aten::add_` 和一个 `_softmax` 分别累计 11.232 s、10.179 s、8.106 s，形状为 `[128,4,976,976]`。打开融合 attention 和 LayerNorm 后，`_fused_bias_attention_kernel` 有 3,072 次，约 12.779 s。`_layer_norm_kernel` 有 968 次，约 849 ms。剩余路径仍有张量复制、非连续 LayerNorm、triangle multiplicative update 的 BMM 和其他线性层。H 和 D 的 trace 来自不同输入和不同 chunk，旧 D 迁移日志也未附算子 trace。\n\nH 原始记录见 [按模块统计](data/plddt-h200/h200_esmfold_profile.json) 和 [按形状统计](data/plddt-h200/h200_esmfold_top_ops.txt)。读取 `aten_ops` 的计数时应区分作用域 JSON 中的 `calls`，后者包含 CPU 和 CUDA profiler 标记。H 复测脚本见 [plddt-h200-probe.py](data/plddt-h200-probe.py)，历史镜像见 [提交脚本](../../../h_code/submit_pdfbench_v23.sh)。D 原始记录在 `kernel_validation/pddt_profile/esmfold_976_top_ops.txt` 和 `esmfold_976_triton_layernorm_top_ops.txt`。\n"
+      },
+      "values_sha256": "f262fa9f704aaffd57dda378cb8ca321ef51e7ca2e20cfd37e8e433f626c6928"
+    },
+    "recovery-history": {
+      "source": "experiments/acceleration/ipr-seed2-priority-dispatch-4x8.SYk15E/handoff.md",
+      "source_format": "text",
+      "source_sha256": "a57dcf2e56b8d8b348868ef6ca5c1ab64dfd5ea1f93829a9774a74c98c1bb9d4",
+      "values": {
+        "/text": "# 本轮交接：4×8 IPR 优先队列全量验证\n\n用户要求启动全量新队列实验。使用 seed2 同一批 1000 条、4 JVM × 8 worker、16 GiB heap、14 组件和 2 秒 JVM 错峰。PANTHER 仍为 16 个模型块，每 JVM 最多同时跑 16 块，四个 JVM 合计最多 64 个单核搜索。模型搜索的全局启动间隔为 0.25 秒。复用本机安装与模型块，使用新的工作目录。\n\n启用已通过小样本验证的优先队列覆盖层。master 使用 `worker_plan.json` 的关键路径估时排序，仅按空闲槽发放，JMS 预取为 0。启动器通过 `dispatch/dispatch-java` 校验实际分片和 worker 数。监控含 broker 分派、`IPR_DISPATCH`、步骤执行、进程采样和节点任务创建率。\n\n- 实验目录 `experiments/acceleration/ipr-seed2-priority-dispatch-4x8.SYk15E`，创建于 `2026-11-20T20:08:22+08:00`，启动前 boot ID 在 `boot_id.before`。\n- 启动命令从项目根执行 `bash experiments/acceleration/ipr-seed2-priority-dispatch-4x8.SYk15E/launch.sh /mnt/ai4s/zhangjianyang/ProteinArena/experiments/acceleration/ipr-seed2-priority-dispatch-4x8.SYk15E`，输出进入 `launch.log`。\n- 同为 16 块并行 16 块的旧轮次已按要求停止，无完整整轮结果。完整对照为预取 1、每 JVM 并行 4 块的 4×8，整轮 1h30m14s。对比该轮时同时改变了队列策略和 PANTHER 并发。\n- 恢复后核对 boot ID、`lifecycle.json`、`launch.log`、`cgroup_monitor.log`、四份 `w8_h16/interproscan.log` 与 `process_trace.jsonl`，确认本机模型路径仍可访问。保留中断目录，重启清空本机文件时在新实验目录重建。\n- 完成后查看 `analysis/parallel_comparison.json`、`analysis/comparison.json` 和 `merged_result.json`，核对每个 JVM 的 PANTHER 提交到开跑、队列在途消息、整轮耗时、资源占用和逐条注释一致性。\n\n## 进度\n\n- 启动前已生成覆盖层和四份优先级文件，等待全量运行。\n\n- 2026-11-20T20:08:22+08:00 到达 `preflight`。\n\n- 2026-11-20T20:08:23+08:00 到达 `running`。\n\n- 首段核实四份分片一致，四个 JVM 的 8 个消费者均预取 0，各观察到的单消费者在途峰值为 1。Gene3D 与 PANTHER 在四个 JVM 均由不同 worker 近同时启动。一次检查的活跃 PANTHER 子进程数为 {'master00': 16, 'master01': 16, 'master02': 16, 'master03': 16}。\n\n## 20:36 中断复核\n\n- 四个 JVM 的最后日志集中在 20:36:18.915–20:36:19.478，最后一轮进程采样显示每个 JVM 都还有 16 个 PANTHER `hmmsearch`。启动器没有记录正常收尾，原 `lifecycle.json` 停在 20:08:23 的 `running`，实验没有合并结果。\n- 20:36:20 平台报下列错误。当前容器的 PID 1 于 20:36:21 启动，宿主机 boot ID 与 `boot_id.before` 一致。本机安装 `/tmp/proteinarena-ipr-full-4x8.Khgtvk` 与工作目录 `/tmp/proteinarena-priority-run.85YZNa` 已不存在。\n- 到 20:36:13 为止的 132 次 cgroup 内存采样，峰值为 63.72 GiB，OOM 和 OOM kill 计数均为 0。按节点 `/proc/stat` 采样计算，任务创建平均约 114 次/秒，最高采样窗口约 408 次/秒，末窗约 63 次/秒。此计数覆盖节点上所有任务，末次采样与中断相隔数秒。\n- 再排查时，先取 `dev-zhangjianyang-self-0` 的 `aispace` 容器上一实例的 `lastState.terminated`、`restartCount` 和同一时段的 Events。当前容器查询 Kubernetes API 时遇到 TLS 证书链校验失败，宿主机内核日志也无法从容器内读取。需要从平台或运维侧补齐。重跑需重建本机安装和模型分块工作目录，并开新实验目录。\n\n```text\n[2026-11-20 20:36:20] Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = failed to exec in container: failed to start exec \"52a35dfbe440924e985c1d8d1216f6b1469e967aa5e6c552d14aa087c20ae2a3\": OCI runtime exec failed: exec failed: unable to start container process: error executing setns process: exit status 1\n```\n\n## 运维反馈与本地复核\n\n11 月 21 日收到对 11 月 20 日事故的运维反馈。北京时间 20:08:23，`dev-zhangjianyang-self` 启动该并行检索作业。作业可采进程 CPU 时间增量的 85.72% 来自 `hmmsearch`。20:10:26–20:35:57，56 个不同的 `hmmsearch` 进程被采到 124 个 D 状态样本，等待点均为 `percpu_rwsem_wait`。按四份 `master*/w8_h16/process_trace.jsonl` 用 PID 与启动 tick 去重，复核了这两个计数和 CPU 占比，PANTHER 占 68 个等待样本。\n\n最后一次采到上述 D 状态时，AID 的 liveness 已连续两次超时。20:36:09 第三次超时，kubelet 随后终止容器。运维同时观察到宿主机多个组件响应变慢。作业的 132 次内存采样中 OOM kill 一直为 0。上面保留的 20:36:20 readiness exec 错误处于容器终止时间线上。等待的具体锁实例及持锁方尚未确认。随后保留 16 块并发的复跑也采到同一等待点，并成功完成。[复跑交接](../ipr-seed2-crash-trace-4x8.fLoHaG/handoff.md)\n"
+      },
+      "values_sha256": "98e97fe573068a55a15dbd1dfa2c3a1d05872453591e9ea5a4a9390138de299c"
+    }
+  }
+}

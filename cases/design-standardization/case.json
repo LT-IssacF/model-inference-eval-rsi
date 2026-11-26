@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "design-standardization",
+  "domain": "protein-model-evaluation",
+  "episodes": [
+    {
+      "id": "design-snapshot",
+      "parents": [
+        "gpu-numerical"
+      ],
+      "status": "validated_in_scope",
+      "problem": "需要把优化执行器接到固定候选、完整覆盖和标准口径。",
+      "observation": "空响应 NaN 哨兵造成原生缓存覆盖报错。",
+      "artifact_change": {
+        "description": "冻结输入和阶段来源，定向归一化空哨兵后逐槽验收。",
+        "project_paths": [
+          "scripts/design_full870.py"
+        ]
+      },
+      "validation": "4862 个有效唯一序列、8692 个候选覆盖通过，同时保留原生失败状态。",
+      "adoption": "固定输入和独立验收被后续旧 seed 评分复测采用。",
+      "limits": [
+        "只剔除已确认身份的空 NaN 哨兵。",
+        "模型全流程完成仍依赖必需阶段与生成来源。"
+      ],
+      "evidence": [
+        "sentinel"
+      ]
+    },
+    {
+      "id": "design-retest",
+      "parents": [
+        "design-snapshot"
+      ],
+      "status": "validated_in_scope",
+      "problem": "旧汇总分母及 ProTrek 文本口径可能造成错误比较。",
+      "observation": "旧 Repeat 全槽均值包含超长候选，同口径逐项评分可以精确重现。",
+      "artifact_change": {
+        "description": "复用固定 seed 候选，按有效集合重算；用原版 ProTrek 和全库 Novelty 复测。",
+        "project_paths": [
+          "experiments/d-standard-eval/legacy-seeds-remaining-20261125/run.py",
+          "experiments/d-standard-eval/legacy-seeds-remaining-20261125/summarize.py"
+        ]
+      },
+      "validation": "三 seed 有效候选 Repeat 对照误差小于 1e-10，ProTrek 和 Novelty 逐项差为零。",
+      "adoption": "分母、文本口径与 Easy 越界的验收规则写入当前方法。",
+      "limits": [
+        "旧 seed 子集的复现范围明确。",
+        "Easy 的旧公式越界和结构 Novelty 未验证仍单列。"
+      ],
+      "evidence": [
+        "legacy-repeat",
+        "legacy-protrek",
+        "legacy-novelty"
+      ]
+    }
+  ]
+}

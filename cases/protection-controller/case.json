@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "protection-controller",
+  "domain": "protein-model-evaluation",
+  "episodes": [
+    {
+      "id": "recovery-observability",
+      "parents": [],
+      "status": "validated_in_scope",
+      "problem": "容器中断可能丢失运行状态和开发环境。",
+      "observation": "运维提供探针超时与容器终止时间，应用 trace 需要同窗对齐。",
+      "artifact_change": {
+        "description": "在使用方项目维护方向进度与当前交接，保存运行身份和证据，并由用户提前准备私密的 harness 账户恢复方式。",
+        "project_paths": [
+          "agent-progress/acceleration/details/ipr-debug.md"
+        ]
+      },
+      "validation": "源事故记录保留平台时间窗和应用侧证据边界。",
+      "adoption": "后续 IPR、并跑及错峰实验沿用独立目录与归档交接。",
+      "limits": [
+        "真实账户凭据和登录备份保存在用户控制的私密位置。",
+        "账户恢复依照所用 harness 的认证方式。",
+        "采样等待点不足以确定实际持锁方。"
+      ],
+      "evidence": [
+        "guard-regression",
+        "recovery-history"
+      ]
+    },
+    {
+      "id": "guard-timing",
+      "parents": [
+        "recovery-observability",
+        "cpu-thread-attribution"
+      ],
+      "status": "validated_in_scope",
+      "problem": "代理阶段和 heartbeat 已越界，控制器却未停止。",
+      "observation": "中间事件刷新 launch 起点，新的 heartbeat 掩盖历史长间隔。",
+      "artifact_change": {
+        "description": "按 probe ID 固定起点，同时检查完成耗时、活动年龄和全部 heartbeat 间隔。",
+        "project_paths": [
+          "experiments/d-standard-eval/step3300-full870-ipr-standalone-recheck-8x8/ipr/waves/wave01/full_controller.py"
+        ]
+      },
+      "validation": "历史失败 5 次 launch 和 3 次 heartbeat 均检出，历史成功波次通过。",
+      "adoption": "独跑两波通过，后续错峰 wave02 在真实超时时触发停止。",
+      "limits": [
+        "阈值来自当次实验约定。",
+        "独跑通过不量化长期故障概率。"
+      ],
+      "evidence": [
+        "guard-regression",
+        "standalone",
+        "staggered"
+      ]
+    },
+    {
+      "id": "staggered-feedback",
+      "parents": [
+        "guard-timing",
+        "gpu-numerical"
+      ],
+      "status": "partial",
+      "problem": "希望 GPU/CPU 重叠，减少总墙钟。",
+      "observation": "错峰后 wave01 通过，wave02 完整 launch 约 6.041 秒。",
+      "artifact_change": {
+        "description": "启动依据递增进度和主机窗口，每波重新观察；保护触发后复核剩余任务。",
+        "project_paths": [
+          "experiments/d-standard-eval/step3300-full870-plddt-ipr-staggered-8gpu-8x8-wave01/staggered-report.md"
+        ]
+      },
+      "validation": "IPR wave02 自动停止，pLDDT 最终通过，整轮全量 IPR 未通过。",
+      "adoption": "反例进入当前 Skill 的错峰适用边界。",
+      "limits": [
+        "尚无该配置全量并跑成功结论。",
+        "初始化争用不是唯一已证明的因果。"
+      ],
+      "evidence": [
+        "staggered"
+      ]
+    }
+  ]
+}

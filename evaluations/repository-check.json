@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "version": "0.1.0",
+  "scope": "archived_evidence_consistency",
+  "cases": 4,
+  "episodes": 10,
+  "evidence_snapshots": 12,
+  "evidence_assertions": 33,
+  "development_tasks": 6,
+  "links": {
+    "local": 44,
+    "project": 9
+  },
+  "project_sources_verified": true,
+  "release_language": null,
+  "method_effectiveness": "not_run",
+  "held_out_evaluation": "not_run"
+}

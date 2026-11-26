@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "id": "plddt-c550",
+  "domain": "protein-model-evaluation",
+  "episodes": [
+    {
+      "id": "gpu-profile",
+      "parents": [],
+      "status": "validated_in_scope",
+      "problem": "C550 上的 ESMFold 迁移性能差，需要找到真实成本。",
+      "observation": "实际模型 trace 显示 triangle attention 的 bias 加法、softmax 和 BMM 路径。",
+      "artifact_change": {
+        "description": "融合注意力与 LayerNorm，并加入长度分桶和多卡均衡。",
+        "project_paths": [
+          "scripts/fused_bias_attention.py",
+          "scripts/triton_layernorm.py",
+          "scripts/foldability_parallel.py"
+        ]
+      },
+      "validation": "同批 50 候选单卡 1105.84 秒到 456.80 秒，八卡与内存盘组合为 113.313 秒。",
+      "adoption": "用于三 seed 与后续 full870 pLDDT。",
+      "limits": [
+        "八卡阶段同时改变设备数和缓存位置。",
+        "硬件迁移需重新验证算子收益。"
+      ],
+      "evidence": [
+        "gpu-measurements"
+      ]
+    },
+    {
+      "id": "gpu-end-to-end",
+      "parents": [
+        "gpu-profile"
+      ],
+      "status": "rejected",
+      "problem": "局部优化看似更快，完整模型却可能变慢。",
+      "observation": "triangle BMM 子图曾快 2.4 倍，完整模型变慢；attention TF32 有误差代价。",
+      "artifact_change": {
+        "description": "保留完整前向消融，采用 IEEE FP32 路径。",
+        "project_paths": [
+          "agent-progress/acceleration/details/plddt-acceleration.md"
+        ]
+      },
+      "validation": "原进度保留被否决方案及各自原因。",
+      "adoption": "完整模型和数值验收进入后续优化选择。",
+      "limits": [
+        "此节点否决的是该环境中的具体优化组合。"
+      ],
+      "evidence": [
+        "gpu-measurements",
+        "gpu-review"
+      ]
+    },
+    {
+      "id": "gpu-numerical",
+      "parents": [
+        "gpu-profile",
+        "gpu-end-to-end"
+      ],
+      "status": "partial",
+      "problem": "汇总接近时仍需要确认逐候选误差。",
+      "observation": "三 seed 最大误差为 2.178、3.466、2.949 点。",
+      "artifact_change": {
+        "description": "记录逐候选分布和离群回退，验证去重后逐槽回填。",
+        "project_paths": [
+          "scripts/foldability_parallel.py",
+          "scripts/foldability_optimized.py"
+        ]
+      },
+      "validation": "历史 seed1 回退后 999/1000 条在 0.30 点内。",
+      "adoption": "后续标准 Design 采用逐槽覆盖与数值检查。",
+      "limits": [
+        "三 seed 的严格逐候选一致性仍有边界。"
+      ],
+      "evidence": [
+        "gpu-measurements",
+        "sentinel",
+        "gpu-review"
+      ]
+    }
+  ]
+}

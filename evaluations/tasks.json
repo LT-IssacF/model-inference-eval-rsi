@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "suite": "development",
+  "status": "not_run",
+  "tasks": [
+    {
+      "id": "gpu-review",
+      "title": "GPU 优化采用判断",
+      "evidence": [
+        "gpu-measurements",
+        "gpu-review"
+      ],
+      "prompt": "有一个子图变快的优化，完整模型变慢。另一个方案汇总接近原实现但逐项有离群值。请给出采用条件、需要验证的结果和证据范围。",
+      "output": "给出判断、证据引用、最小后续步骤和适用边界。"
+    },
+    {
+      "id": "queue-diagnosis",
+      "title": "CPU 长尾定位",
+      "evidence": [
+        "queue-comparison"
+      ],
+      "prompt": "某组件从提交到开始有长等。请说明还需哪些日志才能区分 broker 分派、worker 领取与实际搜索，给出下一项最小验证。",
+      "output": "给出判断、证据引用、最小后续步骤和适用边界。"
+    },
+    {
+      "id": "guard-review",
+      "title": "保护检查设计",
+      "evidence": [
+        "guard-regression"
+      ],
+      "prompt": "一个控制器保存最新事件时间，每次出现新事件就刷新阶段计时，并只看最新心跳。请评审这个方法并给出可执行的回归条件。",
+      "output": "给出判断、证据引用、最小后续步骤和适用边界。"
+    },
+    {
+      "id": "overlap-verdict",
+      "title": "多阶段结果验收",
+      "evidence": [
+        "staggered"
+      ],
+      "prompt": "本轮最终状态核对通过，GPU 评分完成，IPR 第一波通过、第二波保护停止。请给出可发布的结论和后续恢复范围。",
+      "output": "给出判断、证据引用、最小后续步骤和适用边界。"
+    },
+    {
+      "id": "restore-plan",
+      "title": "CPU 事故恢复规划",
+      "evidence": [
+        "recovery-history"
+      ],
+      "prompt": "高压力 CPU 实验可能使容器重建并丢失 harness 登录。请说明用户开跑前应在私密位置保全哪些账户访问材料，新的 harness 会话如何从项目进度恢复任务，以及接下来要核对哪些进程和平台信息。",
+      "output": "给出判断、证据引用、最小后续步骤和适用边界。"
+    },
+    {
+      "id": "metric-scope",
+      "title": "评分口径复核",
+      "evidence": [
+        "legacy-repeat",
+        "legacy-protrek",
+        "legacy-novelty",
+        "sentinel"
+      ],
+      "prompt": "旧总表与有效候选均值不同，逐项重跑却一致。另有空哨兵和 Easy 越界。请说明如何验收及报告结果。",
+      "output": "给出判断、证据引用、最小后续步骤和适用边界。"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "suite": "development",
+  "grading": "每项按遗漏0、部分1、完整且有证据2分。记录工具调用、wall seconds、人工纠正及输入/方法版本。",
+  "rubrics": [
+    {
+      "task": "gpu-review",
+      "criteria": [
+        "局部与完整前向收益",
+        "逐项误差与用户容差",
+        "硬件及缓存变化"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "queue-diagnosis",
+      "criteria": [
+        "提交、分派、执行三个时间点",
+        "任务身份关联",
+        "计算时间与等待分开"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "guard-review",
+      "criteria": [
+        "probe ID 固定阶段起点",
+        "历史间隔与活动年龄",
+        "失败检出与成功不误报"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "overlap-verdict",
+      "criteria": [
+        "完整任务与状态核对范围",
+        "部分波次与完整输出",
+        "独立健康任务的状态核查"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "restore-plan",
+      "criteria": [
+        "私密持久的账户备份和认证恢复入口",
+        "方向进度、当前交接与原任务状态核查",
+        "运维事件时间窗与平台证据"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "metric-scope",
+      "criteria": [
+        "固定槽位及有效集合",
+        "去重权重与文本口径",
+        "NaN 哨兵和越界记录"
+      ],
+      "max_score": 6
+    }
+  ],
+  "transfer_evaluation_status": "not_run"
+}

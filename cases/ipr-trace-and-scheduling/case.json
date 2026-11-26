@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "ipr-trace-and-scheduling",
+  "domain": "protein-model-evaluation",
+  "episodes": [
+    {
+      "id": "cpu-trace-queue",
+      "parents": [],
+      "status": "validated_in_scope",
+      "problem": "IPR 的组件长尾混合了队列等待与实际计算。",
+      "observation": "任务已提交但长时间未执行，broker 与 worker 记录显示分派后长等。",
+      "artifact_change": {
+        "description": "增加步骤、JMS、进程树 trace，采用依赖约束下的关键路径调度与预取 0。",
+        "project_paths": [
+          "scripts/analyze_ipr_trace.py",
+          "scripts/prepare_ipr_priority_dispatch.py",
+          "scripts/plan_ipr_workers.py"
+        ]
+      },
+      "validation": "同批 4x8 从 5414.25 到 4610.76 秒，计分 ID 与完整 PANTHER match 1000/1000 一致。",
+      "adoption": "用于后续 8x8 搜索与保护诊断。",
+      "limits": [
+        "调度和预取共同变化。",
+        "分块与原全库仍需各自比较。"
+      ],
+      "evidence": [
+        "queue-comparison"
+      ]
+    },
+    {
+      "id": "cpu-thread-attribution",
+      "parents": [
+        "cpu-trace-queue"
+      ],
+      "status": "validated_in_scope",
+      "problem": "HMMER 线程减少后，真实混合负载仍有高创建峰值。",
+      "observation": "实际工具计数揭示 pfscanV3 与 HAMAP 的创建贡献。",
+      "artifact_change": {
+        "description": "以调用入口、PID 和 exec 身份记录创建与回收，单独限制 pfscanV3。",
+        "project_paths": [
+          "scripts/ipr_native_thread_probe.c",
+          "scripts/ipr_native_activity.py"
+        ]
+      },
+      "validation": "pfscanV3 创建 283648 到 1108，真实混合负载完整 match 一致。",
+      "adoption": "跨组件创建与退出采样成为后续故障诊断的输入。",
+      "limits": [
+        "percpu 等待仍存在。",
+        "锁实例及重启因果需要直接证据。"
+      ],
+      "evidence": [
+        "thread-attribution"
+      ]
+    }
+  ]
+}

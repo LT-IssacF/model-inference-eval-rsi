@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "name": "model-inference-eval-rsi",
+  "version": "0.1.0",
+  "created_at": "2026-11-26",
+  "stage": "initial_artifact_repository",
+  "method_effectiveness": {
+    "status": "not_run",
+    "protocol": "evaluations/README.md",
+    "development_tasks": "evaluations/tasks.json",
+    "held_out_evaluation": "not_run"
+  },
+  "precursor": {
+    "project_path": "agent-progress/skill/accelerate-evaluation-workloads/SKILL.md",
+    "sha256_at_capture": "9df1457ce62f0b3bd3875dfda6b496655f19b80622d791afa671fe592200dc91"
+  },
+  "cases": [
+    "cases/plddt-c550/case.json",
+    "cases/ipr-trace-and-scheduling/case.json",
+    "cases/protection-controller/case.json",
+    "cases/design-standardization/case.json"
+  ]
+}
