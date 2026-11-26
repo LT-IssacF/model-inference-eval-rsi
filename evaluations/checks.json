@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "scope": "archived_evidence_consistency",
+  "checks": [
+    {
+      "id": "gpu-same-batch",
+      "episode": "gpu-profile",
+      "evidence": "gpu-measurements",
+      "pointer": "/sample_candidates",
+      "operator": "eq",
+      "expected": 50
+    },
+    {
+      "id": "gpu-single-card-time",
+      "episode": "gpu-profile",
+      "evidence": "gpu-measurements",
+      "pointer": "/sample_seconds/batch_safe_single_gpu",
+      "operator": "lt",
+      "expected": 500
+    },
+    {
+      "id": "gpu-outliers-retained",
+      "episode": "gpu-numerical",
+      "evidence": "gpu-measurements",
+      "pointer": "/full_max_plddt_diff/1",
+      "operator": "gt",
+      "expected": 3
+    },
+    {
+      "id": "gpu-selected-repack-policy",
+      "episode": "gpu-end-to-end",
+      "evidence": "gpu-review",
+      "pointer": "/plddt/triangle_bmm_repack",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "id": "queue-output-ids",
+      "episode": "cpu-trace-queue",
+      "evidence": "queue-comparison",
+      "pointer": "/interpro_id_matches",
+      "operator": "eq",
+      "expected": 1000
+    },
+    {
+      "id": "queue-output-matches",
+      "episode": "cpu-trace-queue",
+      "evidence": "queue-comparison",
+      "pointer": "/exact_panther_matches",
+      "operator": "eq",
+      "expected": 1000
+    },
+    {
+      "id": "queue-wall",
+      "episode": "cpu-trace-queue",
+      "evidence": "queue-comparison",
+      "pointer": "/wall_seconds_priority",
+      "operator": "lt",
+      "expected": 4700
+    },
+    {
+      "id": "thread-tool-attribution",
+      "episode": "cpu-thread-attribution",
+      "evidence": "thread-attribution",
+      "pointer": "/by_tool/1",
+      "operator": "eq",
+      "expected": {
+        "component": "PROSITE patterns",
+        "tool": "pfscanV3",
+        "A_creates": 283648,
+        "B_creates": 1108,
+        "A_images": 378,
+        "B_images": 378
+      }
+    },
+    {
+      "id": "container-recovery-evidence",
+      "episode": "recovery-observability",
+      "evidence": "recovery-history",
+      "pointer": "/lines/30",
+      "operator": "contains",
+      "expected": "Readiness probe errored and resulted in unknown state"
+    },
+    {
+      "id": "guard-regression",
+      "episode": "guard-timing",
+      "evidence": "guard-regression",
+      "pointer": "/passed",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "id": "guard-replay-all-eight",
+      "episode": "guard-timing",
+      "evidence": "guard-regression",
+      "pointer": "/streaming_replay_previous_failure",
+      "operator": "length",
+      "expected": 8
+    },
+    {
+      "id": "guard-reject-old-launches",
+      "episode": "guard-timing",
+      "evidence": "guard-regression",
+      "pointer": "/previous_failed_wave/counts/proxy_launch",
+      "operator": "eq",
+      "expected": 5
+    },
+    {
+      "id": "guard-reject-old-heartbeats",
+      "episode": "guard-timing",
+      "evidence": "guard-regression",
+      "pointer": "/previous_failed_wave/counts/heartbeat",
+      "operator": "eq",
+      "expected": 3
+    },
+    {
+      "id": "guard-mid-event",
+      "episode": "guard-timing",
+      "evidence": "guard-regression",
+      "pointer": "/spawn_does_not_reset_launch/phase",
+      "operator": "eq",
+      "expected": "launch_active"
+    },
+    {
+      "id": "standalone-finite-coverage",
+      "episode": "guard-timing",
+      "evidence": "standalone",
+      "pointer": "/finite_candidate_scores",
+      "operator": "eq",
+      "expected": 8692
+    },
+    {
+      "id": "staggered-state-verification",
+      "episode": "staggered-feedback",
+      "evidence": "staggered",
+      "pointer": "/verification_passed",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "id": "staggered-full-run-failed",
+      "episode": "staggered-feedback",
+      "evidence": "staggered",
+      "pointer": "/experiment_passed",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "id": "staggered-wave1-only",
+      "episode": "staggered-feedback",
+      "evidence": "staggered",
+      "pointer": "/ipr_wave01_passed",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "id": "staggered-full-ipr-failed",
+      "episode": "staggered-feedback",
+      "evidence": "staggered",
+      "pointer": "/ipr_full870_passed",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "id": "staggered-real-guard",
+      "episode": "staggered-feedback",
+      "evidence": "staggered",
+      "pointer": "/wave02/protection/violation_counts/guard_stop",
+      "operator": "eq",
+      "expected": 1
+    },
+    {
+      "id": "staggered-preserved-gpu-result",
+      "episode": "staggered-feedback",
+      "evidence": "staggered",
+      "pointer": "/plddt_passed",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "id": "sentinel-native-failure",
+      "episode": "design-snapshot",
+      "evidence": "sentinel",
+      "pointer": "/native_audit_fold_passed",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "id": "sentinel-normalized-pass",
+      "episode": "design-snapshot",
+      "evidence": "sentinel",
+      "pointer": "/passed",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "id": "sentinel-finite-coverage",
+      "episode": "design-snapshot",
+      "evidence": "sentinel",
+      "pointer": "/valid_candidate_slots",
+      "operator": "eq",
+      "expected": 8692
+    },
+    {
+      "id": "repeat-1",
+      "episode": "design-retest",
+      "evidence": "legacy-repeat",
+      "pointer": "/1/max_abs_repeat_delta",
+      "operator": "lt",
+      "expected": 1e-10
+    },
+    {
+      "id": "protrek-1",
+      "episode": "design-retest",
+      "evidence": "legacy-protrek",
+      "pointer": "/1/max_abs_cosine_delta",
+      "operator": "eq",
+      "expected": 0.0
+    },
+    {
+      "id": "novelty-1",
+      "episode": "design-retest",
+      "evidence": "legacy-novelty",
+      "pointer": "/seeds/1/novelty_hard_max_abs_delta",
+      "operator": "eq",
+      "expected": 0.0
+    },
+    {
+      "id": "repeat-2",
+      "episode": "design-retest",
+      "evidence": "legacy-repeat",
+      "pointer": "/2/max_abs_repeat_delta",
+      "operator": "lt",
+      "expected": 1e-10
+    },
+    {
+      "id": "protrek-2",
+      "episode": "design-retest",
+      "evidence": "legacy-protrek",
+      "pointer": "/2/max_abs_cosine_delta",
+      "operator": "eq",
+      "expected": 0.0
+    },
+    {
+      "id": "novelty-2",
+      "episode": "design-retest",
+      "evidence": "legacy-novelty",
+      "pointer": "/seeds/2/novelty_hard_max_abs_delta",
+      "operator": "eq",
+      "expected": 0.0
+    },
+    {
+      "id": "repeat-3",
+      "episode": "design-retest",
+      "evidence": "legacy-repeat",
+      "pointer": "/3/max_abs_repeat_delta",
+      "operator": "lt",
+      "expected": 1e-10
+    },
+    {
+      "id": "protrek-3",
+      "episode": "design-retest",
+      "evidence": "legacy-protrek",
+      "pointer": "/3/max_abs_cosine_delta",
+      "operator": "eq",
+      "expected": 0.0
+    },
+    {
+      "id": "novelty-3",
+      "episode": "design-retest",
+      "evidence": "legacy-novelty",
+      "pointer": "/seeds/3/novelty_hard_max_abs_delta",
+      "operator": "eq",
+      "expected": 0.0
+    }
+  ]
+}

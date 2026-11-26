@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "plddt-c550",
+  "domain": "protein-model-evaluation",
+  "episodes": [
+    {
+      "id": "gpu-profile",
+      "parents": [],
+      "status": "validated_in_scope",
+      "problem": "ESMFold performance changed after migration to C550.",
+      "observation": "Model tracing identified triangle attention and explicit bias and softmax work.",
+      "artifact_change": {
+        "description": "Introduce fused attention and LayerNorm, then bucket inputs and balance devices.",
+        "project_paths": [
+          "scripts/fused_bias_attention.py",
+          "scripts/triton_layernorm.py",
+          "scripts/foldability_parallel.py"
+        ]
+      },
+      "validation": "A fixed 50-candidate workload took 1105.84 seconds in the bucketed baseline and 456.80 seconds in the single-device optimized path.",
+      "adoption": "The execution path was used for three-seed and full870 pLDDT runs.",
+      "limits": [
+        "The eight-device experiment also changed model-cache location.",
+        "Operator gains require fresh measurement on another runtime or device."
+      ],
+      "evidence": [
+        "gpu-measurements"
+      ]
+    },
+    {
+      "id": "gpu-end-to-end",
+      "parents": [
+        "gpu-profile"
+      ],
+      "status": "rejected",
+      "problem": "An operator improvement can increase complete-model cost.",
+      "observation": "Full-model experiments constrained the selected kernel and precision settings.",
+      "artifact_change": {
+        "description": "Retain complete-model ablations and an explicit selected-kernel policy.",
+        "project_paths": [
+          "agent-progress/acceleration/details/plddt-acceleration.md"
+        ]
+      },
+      "validation": "The accepted configuration disables triangle BMM repacking and uses IEEE FP32 attention.",
+      "adoption": "Complete-model and numerical checks informed subsequent optimization choices.",
+      "limits": [
+        "The rejected combination is specific to its measured environment.",
+        "The selected configuration alone does not quantify the rejected candidate performance."
+      ],
+      "evidence": [
+        "gpu-measurements",
+        "gpu-review"
+      ]
+    },
+    {
+      "id": "gpu-numerical",
+      "parents": [
+        "gpu-profile",
+        "gpu-end-to-end"
+      ],
+      "status": "partial",
+      "problem": "Similar aggregate scores can hide candidate-level numerical tails.",
+      "observation": "Maximum differences across three seeds were 2.178, 3.466, and 2.949 points.",
+      "artifact_change": {
+        "description": "Report candidate-level distributions and fallback behavior while verifying slot reconstruction.",
+        "project_paths": [
+          "scripts/foldability_parallel.py",
+          "scripts/foldability_optimized.py"
+        ]
+      },
+      "validation": "A seed1 fallback brought 999 of 1000 candidates within 0.30 points.",
+      "adoption": "Full Design acceptance subsequently checked slot coverage and numerical values.",
+      "limits": [
+        "Strict candidate-level equivalence retains recorded boundaries across the three seeds."
+      ],
+      "evidence": [
+        "gpu-measurements",
+        "sentinel",
+        "gpu-review"
+      ]
+    }
+  ]
+}

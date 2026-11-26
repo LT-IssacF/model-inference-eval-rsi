@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "suite": "development",
+  "grading": "Score each criterion as 0 for missing, 1 for partial, or 2 for complete and supported by evidence. Record tool calls, wall time, human corrections, and input and method versions.",
+  "rubrics": [
+    {
+      "task": "gpu-review",
+      "criteria": [
+        "Complete-model and operator timing scopes",
+        "Candidate-level tails and agreed tolerance",
+        "Hardware and cache changes"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "queue-diagnosis",
+      "criteria": [
+        "Submission, dispatch, and execution timing",
+        "Task identity correlation",
+        "Separation of queue delay and computation"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "guard-review",
+      "criteria": [
+        "Phase origin bound to probe identity",
+        "Historical intervals and active phase age",
+        "Failure detection and successful-run acceptance"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "overlap-verdict",
+      "criteria": [
+        "State-audit scope and full-task outcome",
+        "Partial waves and complete output coverage",
+        "Health checks for remaining independent work"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "restore-plan",
+      "criteria": [
+        "Durable private account backup and an authentication recovery route",
+        "Direction progress and active handoff with original task-state verification",
+        "Operator incident timing and platform evidence"
+      ],
+      "max_score": 6
+    },
+    {
+      "task": "metric-scope",
+      "criteria": [
+        "Frozen slots and eligible population",
+        "Occurrence weights and text convention",
+        "Explicit sentinel and range-anomaly treatment"
+      ],
+      "max_score": 6
+    }
+  ],
+  "transfer_evaluation_status": "not_run"
+}

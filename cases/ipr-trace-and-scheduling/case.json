@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "ipr-trace-and-scheduling",
+  "domain": "protein-model-evaluation",
+  "episodes": [
+    {
+      "id": "cpu-trace-queue",
+      "parents": [],
+      "status": "validated_in_scope",
+      "problem": "An IPR tail combined queue delay with actual search work.",
+      "observation": "Submission, broker, worker, and process observations exposed long waits before execution.",
+      "artifact_change": {
+        "description": "Add directed traces and introduce dependency-aware critical-path scheduling with prefetch zero.",
+        "project_paths": [
+          "scripts/analyze_ipr_trace.py",
+          "scripts/prepare_ipr_priority_dispatch.py",
+          "scripts/plan_ipr_workers.py"
+        ]
+      },
+      "validation": "The same-input 4-by-8 run fell from 5414.25 to 4610.76 seconds with 1000 matching ID sets and complete PANTHER matches.",
+      "adoption": "Later 8-by-8 search and protection investigations reused the diagnostics and scheduling.",
+      "limits": [
+        "Queue scheduling and prefetch changed together.",
+        "Partitioned and full-library configurations need their own result comparison."
+      ],
+      "evidence": [
+        "queue-comparison"
+      ]
+    },
+    {
+      "id": "cpu-thread-attribution",
+      "parents": [
+        "cpu-trace-queue"
+      ],
+      "status": "validated_in_scope",
+      "problem": "Mixed workloads retained high creation rates after HMMER thread changes.",
+      "observation": "Tool-level counters identified substantial pfscanV3 and HAMAP creation activity.",
+      "artifact_change": {
+        "description": "Record native creation and return events by process image, then limit pfscanV3 independently.",
+        "project_paths": [
+          "scripts/ipr_native_thread_probe.c",
+          "scripts/ipr_native_activity.py"
+        ]
+      },
+      "validation": "pfscanV3 creation calls fell from 283648 to 1108 with consistent complete matches in the mixed workload.",
+      "adoption": "Cross-component creation and exit observations informed later failure investigation.",
+      "limits": [
+        "Sampled percpu waits remained.",
+        "Lock identity and restart causality require additional direct evidence."
+      ],
+      "evidence": [
+        "thread-attribution"
+      ]
+    }
+  ]
+}

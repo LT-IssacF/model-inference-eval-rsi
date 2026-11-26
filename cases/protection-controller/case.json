@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "protection-controller",
+  "domain": "protein-model-evaluation",
+  "episodes": [
+    {
+      "id": "recovery-observability",
+      "parents": [],
+      "status": "validated_in_scope",
+      "problem": "An interrupted container could lose task state and temporary installations.",
+      "observation": "Operator incident timing and persistent application logs bounded the failure window.",
+      "artifact_change": {
+        "description": "Maintain durable project progress and active task handoffs, preserve run identity and evidence, and prepare a private harness account recovery route.",
+        "project_paths": [
+          "agent-progress/acceleration/details/ipr-debug.md"
+        ]
+      },
+      "validation": "The source archive retains a platform probe error at the container interruption boundary.",
+      "adoption": "Later IPR, overlapping, and staggered experiments used independent run directories and persistent handoffs.",
+      "limits": [
+        "Actual account credentials and login backups remain in user-controlled private storage.",
+        "Account restoration follows the selected harness authentication mechanism.",
+        "A sampled wait channel does not identify the lock holder."
+      ],
+      "evidence": [
+        "guard-regression",
+        "recovery-history"
+      ]
+    },
+    {
+      "id": "guard-timing",
+      "parents": [
+        "recovery-observability",
+        "cpu-thread-attribution"
+      ],
+      "status": "validated_in_scope",
+      "problem": "Probe phases and heartbeat intervals exceeded limits without an automatic stop.",
+      "observation": "Intermediate events reset the phase timer and newer heartbeats obscured previous long gaps.",
+      "artifact_change": {
+        "description": "Track phase starts per probe ID and inspect completed duration, active age, and every heartbeat interval.",
+        "project_paths": [
+          "experiments/d-standard-eval/step3300-full870-ipr-standalone-recheck-8x8/ipr/waves/wave01/full_controller.py"
+        ]
+      },
+      "validation": "Replay detected five launch and three heartbeat violations while the historical successful waves passed.",
+      "adoption": "Independent waves completed; a later staggered wave exercised the repaired stop mechanism.",
+      "limits": [
+        "Protection thresholds were agreed for the specific experiment.",
+        "A successful independent run does not establish a long-term failure rate."
+      ],
+      "evidence": [
+        "guard-regression",
+        "standalone",
+        "staggered"
+      ]
+    },
+    {
+      "id": "staggered-feedback",
+      "parents": [
+        "guard-timing",
+        "gpu-numerical"
+      ],
+      "status": "partial",
+      "problem": "CPU and GPU overlap was intended to reduce total completion time.",
+      "observation": "The first staggered wave passed and the second recorded a launch of about 6.041 seconds.",
+      "artifact_change": {
+        "description": "Gate insertion on progressing workers and host health, then monitor each wave and reassess remaining work after a stop.",
+        "project_paths": [
+          "experiments/d-standard-eval/step3300-full870-plddt-ipr-staggered-8gpu-8x8-wave01/staggered-report.md"
+        ]
+      },
+      "validation": "The controller stopped IPR wave02, pLDDT completed, and the full overlap experiment remained unsuccessful.",
+      "adoption": "This counterexample bounds the current staggering guidance.",
+      "limits": [
+        "Full-workload overlap has not passed acceptance under this configuration.",
+        "Startup contention is not an established sole cause."
+      ],
+      "evidence": [
+        "staggered"
+      ]
+    }
+  ]
+}

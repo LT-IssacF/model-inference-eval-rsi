@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "suite": "development",
+  "status": "not_run",
+  "tasks": [
+    {
+      "id": "gpu-review",
+      "title": "Review a GPU optimization",
+      "evidence": [
+        "gpu-measurements",
+        "gpu-review"
+      ],
+      "prompt": "An operator candidate improves a subgraph but slows the complete model. Another path preserves aggregates while retaining candidate outliers. Decide what can be adopted, under what numerical conditions, and which measurements support the decision.",
+      "output": "Provide a decision, evidence references, a minimal next action, and applicability limits."
+    },
+    {
+      "id": "queue-diagnosis",
+      "title": "Diagnose a CPU tail",
+      "evidence": [
+        "queue-comparison"
+      ],
+      "prompt": "A component starts long after submission. Identify the observations needed to separate broker dispatch, worker receipt, and search execution. Propose the smallest useful next validation.",
+      "output": "Provide a decision, evidence references, a minimal next action, and applicability limits."
+    },
+    {
+      "id": "guard-review",
+      "title": "Review protection logic",
+      "evidence": [
+        "guard-regression"
+      ],
+      "prompt": "A controller refreshes its phase timestamp on every new event and only inspects the latest heartbeat. Review this design and define executable regression conditions.",
+      "output": "Provide a decision, evidence references, a minimal next action, and applicability limits."
+    },
+    {
+      "id": "overlap-verdict",
+      "title": "Assess a multi-stage result",
+      "evidence": [
+        "staggered"
+      ],
+      "prompt": "The final state audit passed, GPU scoring completed, the first IPR wave passed, and the second stopped on protection. State the supported release conclusion and recovery scope.",
+      "output": "Provide a decision, evidence references, a minimal next action, and applicability limits."
+    },
+    {
+      "id": "restore-plan",
+      "title": "Plan incident recovery",
+      "evidence": [
+        "recovery-history"
+      ],
+      "prompt": "A risky CPU experiment may rebuild the container and lose the harness login session. Explain what the user should preserve privately before launch, how a fresh harness session should recover the task from project progress, and which process and platform observations determine the next action.",
+      "output": "Provide a decision, evidence references, a minimal next action, and applicability limits."
+    },
+    {
+      "id": "metric-scope",
+      "title": "Review metric populations",
+      "evidence": [
+        "legacy-repeat",
+        "legacy-protrek",
+        "legacy-novelty",
+        "sentinel"
+      ],
+      "prompt": "An old aggregate differs from an eligible-candidate mean even though item-level values reproduce. An empty sentinel and Easy range anomalies also occur. Define the acceptance and reporting approach.",
+      "output": "Provide a decision, evidence references, a minimal next action, and applicability limits."
+    }
+  ]
+}

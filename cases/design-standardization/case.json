@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "design-standardization",
+  "domain": "protein-model-evaluation",
+  "episodes": [
+    {
+      "id": "design-snapshot",
+      "parents": [
+        "gpu-numerical"
+      ],
+      "status": "validated_in_scope",
+      "problem": "Optimized execution needed frozen inputs and explicit acceptance populations.",
+      "observation": "An empty-response NaN sentinel caused native cache-coverage acceptance to fail.",
+      "artifact_change": {
+        "description": "Freeze inputs and stage provenance, then normalize the identified empty placeholder in memory before slot-level checks.",
+        "project_paths": [
+          "scripts/design_full870.py"
+        ]
+      },
+      "validation": "Coverage passed for 4862 eligible unique sequences and 8692 slots while the native failure status remained recorded.",
+      "adoption": "Later fixed-seed scoring retests reused the provenance and population checks.",
+      "limits": [
+        "Normalization applies only to the identified empty NaN placeholder.",
+        "Complete model evaluation also needs required stage and generation provenance."
+      ],
+      "evidence": [
+        "sentinel"
+      ]
+    },
+    {
+      "id": "design-retest",
+      "parents": [
+        "design-snapshot"
+      ],
+      "status": "validated_in_scope",
+      "problem": "Historical denominators and text conventions could distort score comparisons.",
+      "observation": "Old Repeat aggregates included over-length outputs while eligible item-level results reproduced.",
+      "artifact_change": {
+        "description": "Retest fixed candidates under explicit populations with the original ProTrek encoders and full-database Novelty search.",
+        "project_paths": [
+          "experiments/d-standard-eval/legacy-seeds-remaining-20261125/run.py",
+          "experiments/d-standard-eval/legacy-seeds-remaining-20261125/summarize.py"
+        ]
+      },
+      "validation": "Eligible Repeat differences were below 1e-10, and same-convention ProTrek and Novelty values reproduced exactly.",
+      "adoption": "Current acceptance guidance records denominator identity, text convention, and legacy Easy anomalies.",
+      "limits": [
+        "These results cover the declared historical subsets.",
+        "Legacy Easy range violations and unverified structure Novelty remain explicit."
+      ],
+      "evidence": [
+        "legacy-repeat",
+        "legacy-protrek",
+        "legacy-novelty"
+      ]
+    }
+  ]
+}
